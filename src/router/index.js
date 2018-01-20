@@ -38,19 +38,18 @@ export default new Router({
       path: '/',
       name: '导航三',
       component: Home,
-      children:[
-        {path: '/test', component:Test,name:'test'},
-        {path: '/user', component:User,name:'user'}
+      children: [
+        { path: '/test', component: Test, name: 'test' },
+        { path: '/user', component: User, name: 'user' }
       ]
-   },
-   {
-    path: '/',
-    name: '导航四',
-    component: Home,
-    children:[
-      {path: '/echart', component:Echart,name:'echart'}
-    ]
- },
-
+    },
+    {
+      path: '/',
+      name: '导航四',
+      component: Home,
+      children: [
+        { path: '/echart', component: Echart, name: 'echart' }
+      ]
+    },
   ]
 })
