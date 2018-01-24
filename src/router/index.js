@@ -14,16 +14,22 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/Login',
+      path: '/login',
       name: 'Login',
-      component: Login
+      component: Login,
+      hidden: true
+    },
+    {
+      path: '/',
+      component: Home,
+      hidden: true
     },
     {
       path: '/',
       name: '导航一',
       component: Home,
       children: [
-        { path: '/tabel', component: Table, name: 'tabel' }
+        { path: 'table', component: Table, name: 'tabel' }
       ]
     },
     {

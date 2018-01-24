@@ -9,6 +9,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Vuex from 'vuex'
 import Mock from 'mockjs'
+import 'font-awesome/css/font-awesome.min.css'
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
@@ -18,18 +19,18 @@ Vue.use(Vuex)
 
 
 router.beforeEach((to, from, next) => {
-  console.log(to, from, next);
-  console.log(sessionStorage);
-  //NProgress.start();
-  // if (to.path == '/login') {
-  //   sessionStorage.removeItem('user');
-  // }
-  // let user = JSON.parse(sessionStorage.getItem('user'));
-  // if (!user && to.path != '/login') {
-  //   next({ path: '/login' })
-  // } else {
-  //   next()
-  // }
+  // console.log(to, from, next);
+  // console.log(sessionStorage);
+  // NProgress.start();
+  if (to.path == '/login') {
+    sessionStorage.removeItem('user');
+  }
+  let user = JSON.parse(sessionStorage.getItem('user'));
+  if (!user && to.path != '/login') {
+    next({ path: '/login' })
+  } else {
+    next()
+  }
 })
 new Vue({
   el: '#app',
