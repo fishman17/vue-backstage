@@ -5,7 +5,7 @@
         <el-input v-model="formInline.user" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">查询</el-button>
+        <el-button type="primary" @click="getUser">查询</el-button>
       </el-form-item>
     </el-form>
       <el-table
@@ -13,14 +13,14 @@
         style="width: 100%"
         :default-sort = "{prop: 'date', order: 'descending'}"
         highlight-current-row
-        
+        v-loading = "loading"
         >
         <el-table-column
           type="index"
           width="50">
         </el-table-column>
         <el-table-column
-          prop="date"
+          prop="birth"
           label="日期"
           sortable
           width="180">
@@ -32,7 +32,7 @@
           width="180">
         </el-table-column>
         <el-table-column
-          prop="address"
+          prop="addr"
           label="地址"
           :formatter="formatter">
         </el-table-column>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import {getUserList} from '../../api/api'
 export default {
   data() {
     return {
@@ -55,37 +56,26 @@ export default {
 				users: [
 				],
       tableData: [
-        {
-          date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄"
-        },
-        {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄"
-        },
-        {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄"
-        },
-        {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄"
-        }
       ],
       currentRow: null
     };
   },
   methods: {
     formatter(row, column) {
-      console.log(row, column);
-      return row.address;
+      return row.addr; 
     },
-    onSubmit(){
-      
+    getUser(){
+      this.loading = true;
+      let name = this.formInline.user;
+      getUserList({name}).then(data=>{
+        console.log(data);
+        this.tableData = data.data.users;
+        this.loading = false;
+      })
+    },
+    mounted(){
+      this.getUser();
+      console.log('mounted');
     }
   }
 };

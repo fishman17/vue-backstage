@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { requestLogin } from "../../api/api";
+import { requestLogin } from "../api/api";
 export default {
   data() {
     return {
@@ -45,9 +45,7 @@ export default {
       this.$refs.ruleForm.resetFields();
     },
     handleSubmit(event) {
-      // console.log(this.$refs.ruleForm);
       this.$refs.ruleForm.validate(valid => {
-        console.log(111);
         if (valid) {
           // this.logining = true;
           var loginParams = {
@@ -55,30 +53,32 @@ export default {
             password: this.ruleForm.checkPass
           };
           this.logining = false;
-          //NProgress.done();
-          // requestLogin(loginParams).then(data => {
-          //   let { msg, code, user } = data;
-          //   if (code !== 200) {
-          //     this.$message({
-          //       message: msg,
-          //       type: "error"
-          //     });
-          //   } else {
-          //     sessionStorage.setItem("user", JSON.stringify(user));
-          //     this.$router.push({ path: "/Table" });
+          // NProgress.done();
+          requestLogin(loginParams)
+            .then(data => {
+              let { msg, code, user } = data;
+              if (code !== 200) {
+                this.$message({
+                  message: msg,
+                  type: "error"
+                });
+              } else {
+                sessionStorage.setItem("user", JSON.stringify(user));
+                this.$router.push({ path: "/Table" });
+              }
+            })
+            .catch(err => {});
+          // const user = [
+          //   {
+          //     id: 1,
+          //     username: "admin",
+          //     password: "123456",
+          //     avatar:"https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png",
+          //     name: "张某某"
           //   }
-          // });
-          const user = [
-            {
-              id: 1,
-              username: "admin",
-              password: "123456",
-              avatar:"https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png",
-              name: "张某某"
-            }
-          ];
-          sessionStorage.setItem("user", JSON.stringify(user));
-          this.$router.push({ path: "/table" });
+          // ];
+          // sessionStorage.setItem("user", JSON.stringify(user));
+          // this.$router.push({ path: "/table" });
         }
       });
     }

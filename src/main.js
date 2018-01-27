@@ -8,9 +8,11 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import Vuex from 'vuex'
-import Mock from 'mockjs'
+import Mock from './mock'
 import 'font-awesome/css/font-awesome.min.css'
 Vue.config.productionTip = false
+
+Mock.bootstrap();
 
 Vue.use(ElementUI)
 Vue.use(VueRouter)
