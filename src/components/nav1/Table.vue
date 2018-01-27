@@ -8,7 +8,7 @@
         <el-button type="primary" @click.native.prevent="getUser">查询</el-button>
       </el-form-item>
        <el-form-item>
-        <el-button type="primary" @click="AddmyUser">新增</el-button>
+        <el-button type="primary" @click.native.prevent="AddmyUser">新增</el-button>
       </el-form-item>
     </el-form>
     <el-table
@@ -69,7 +69,7 @@
       </el-col>
 
  <!-- 编辑框框 -->
-    <el-dialog title="编辑" :visible="editFormVisible" :close-on-click-modal="false">
+    <el-dialog title="编辑" :visible="editFormVisible" :close-on-click-modal="false"  :before-close="handleClose">
         <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
           <el-form-item label="姓名" prop="name">
             <el-input v-model="editForm.name" auto-complete="off"></el-input>
@@ -97,7 +97,7 @@
 		</el-dialog>
 
 	<!--新增界面-->
-		<el-dialog title="新增" :visible ="addFormVisible?true: false" :close-on-click-modal="false">
+		<el-dialog title="新增" :visible ="addFormVisible?true: false" :close-on-click-modal="false"  :before-close="handleClose">
 			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
 				<el-form-item label="姓名" prop="name">
 					<el-input v-model="addForm.name" auto-complete="off"></el-input>
@@ -189,6 +189,15 @@ export default {
     formatter(row, column) {
       return row.addr;
     },
+    //框框关闭
+    handleClose() {
+      this.$confirm("确认关闭？")
+        .then(_ => {
+          this.editFormVisible = false;
+          this.addFormVisible = false;
+        })
+        .catch(_ => {});
+    },
     //查询按钮
     getUser() {
       // let num = 123;
@@ -233,28 +242,31 @@ export default {
       this.editFormVisible = true;
       this.editForm = Object.assign({}, row);
     },
-    editSubmit(){
-      this.$refs.editForm.validate((valid)=>{
-        if(valid){
-           this.$confirm("确认提交吗？", "提示", {}).then(() => {
-              this.editLoading = true;
-              let para = Object.assign({},this.editForm);
-              console.log(JSON.stringify(para.birth) );
-              para.birth = !para.birth || para.birth == "" ? "" : util.formatDate.format(new Date(para.birth), "yyyy-MM-dd")
-              console.log(para.birth );
-              editUser(para).then(res=>{
-                this.editLoading = false;
-                this.$message({
-                  message: "提交成功",
-                  type: "success"
-                });
-                this.$refs["editForm"].resetFields();
-                this.editFormVisible = false;
-                this.getUser();
-              })
-           })
+    editSubmit() {
+      this.$refs.editForm.validate(valid => {
+        if (valid) {
+          this.$confirm("确认提交吗？", "提示", {}).then(() => {
+            this.editLoading = true;
+            let para = Object.assign({}, this.editForm);
+            console.log(JSON.stringify(para.birth));
+            para.birth =
+              !para.birth || para.birth == ""
+                ? ""
+                : util.formatDate.format(new Date(para.birth), "yyyy-MM-dd");
+            console.log(para.birth);
+            editUser(para).then(res => {
+              this.editLoading = false;
+              this.$message({
+                message: "提交成功",
+                type: "success"
+              });
+              this.$refs["editForm"].resetFields();
+              this.editFormVisible = false;
+              this.getUser();
+            });
+          });
         }
-      })
+      });
     },
     handleDelete(index, row) {
       this.$confirm("确认删除该记录吗?", "提示", {
@@ -273,7 +285,7 @@ export default {
     },
     allDelete() {
       console.log(this.sels);
-      let ids = this.sels.map(item=>item.id).toString();
+      let ids = this.sels.map(item => item.id).toString();
       this.$confirm("确认删除该记录吗?", "提示", {
         type: "warning"
       })
@@ -281,11 +293,11 @@ export default {
           this.listLoading = true;
           //NProgress.start();
           let para = { id: ids };
-          batchRemoveUser(para).then(res=>{
+          batchRemoveUser(para).then(res => {
             this.$message({
-              message: '删除成功',
+              message: "删除成功",
               type: "success"
-            })  
+            });
             this.getUser();
           });
         })
@@ -298,11 +310,11 @@ export default {
     },
     created() {
       console.log("this is Table created");
-    },
-    mounted() {
-      console.log("this is Table");
-      this.getUser();
     }
+  },
+  mounted() {
+    console.log("this is Table");
+    this.getUser();
   }
 };
 </script>

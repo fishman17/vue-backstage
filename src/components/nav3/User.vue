@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import {getUserList} from '../../api/api'
+import { getUserList } from "../../api/api";
 export default {
   data() {
     return {
@@ -49,34 +49,32 @@ export default {
         user: "",
         region: ""
       },
-    	filters: {
-					name: ''
-				},
-				loading: false,
-				users: [
-				],
-      tableData: [
-      ],
+      filters: {
+        name: ""
+      },
+      loading: false,
+      users: [],
+      tableData: [],
       currentRow: null
     };
   },
   methods: {
     formatter(row, column) {
-      return row.addr; 
+      return row.addr;
     },
-    getUser(){
+    getUser() {
       this.loading = true;
       let name = this.formInline.user;
-      getUserList({name}).then(data=>{
+      getUserList({ name }).then(data => {
         console.log(data);
         this.tableData = data.data.users;
         this.loading = false;
-      })
-    },
-    mounted(){
-      this.getUser();
-      console.log('mounted');
+      });
     }
+  },
+  mounted() {
+    this.getUser();
+    console.log("mounted");
   }
 };
 </script>
@@ -85,15 +83,15 @@ export default {
 .el-table .cell {
   text-align: left;
 }
-.demo-form-inline{
+.demo-form-inline {
   /* display: flex;
   align-items: center;
   justify-content: flex-start; */
   padding: 10px;
   text-align: left;
-  background-color:  #f2f2f2;
+  background-color: #f2f2f2;
 }
-.el-form-item{
+.el-form-item {
   margin-bottom: 0;
 }
 </style>
