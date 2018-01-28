@@ -17,4 +17,7 @@ export const batchRemoveUser = params => { return axios.get(`${base}/user/batchr
 export const editUser = params => { return axios.get(`${base}/user/edit`, { params: params }); };
 
 export const addUser = params => { return axios.get(`${base}/user/add`, { params: params }); };
+
+export const getEcharts = params => { return axios.get(`${base}/user/echarts`, { params: params }); };
+
 export const test = params => { return axios.get(`${base}/user/test`, { params: params }); };

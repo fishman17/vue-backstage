@@ -79,7 +79,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .el-table .cell {
   text-align: left;
 }

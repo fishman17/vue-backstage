@@ -1,6 +1,7 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import { LoginUsers, Users } from './data/user'
+import { echarts } from './data/echarts'
 let _Users = Users
 
 export default {
@@ -71,7 +72,7 @@ export default {
                         users: fiUsers,
                         total
                     }]);
-                }, 400);
+                }, 500);
             });
         });
         mock.onGet('/user/add').reply(config => {
@@ -141,6 +142,15 @@ export default {
                     msg: '编辑成功'
                   }]);
                 }, 500);
+              });
+        });
+        mock.onGet('/user/echarts').reply(config => {
+            console.log(config);
+            return new Promise((resolve, reject) => {
+                  resolve([200, {
+                    code: 200,
+                    msg: echarts
+                  }]);
               });
         });
     }

@@ -17,6 +17,7 @@
         :default-sort = "{prop: 'date', order: 'descending'}"
         highlight-current-row
         @selection-change="handleSelectionChange"
+        v-loading = "loading"
         >
          <el-table-column
             type="selection"
@@ -70,7 +71,7 @@
 
  <!-- 编辑框框 -->
     <el-dialog title="编辑" :visible="editFormVisible" :close-on-click-modal="false"  :before-close="handleClose">
-        <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm">
+        <el-form :model="editForm" label-width="80px" :rules="editFormRules" ref="editForm" style="text-align: left;">
           <el-form-item label="姓名" prop="name">
             <el-input v-model="editForm.name" auto-complete="off"></el-input>
           </el-form-item>
@@ -97,7 +98,7 @@
 		</el-dialog>
 
 	<!--新增界面-->
-		<el-dialog title="新增" :visible ="addFormVisible?true: false" :close-on-click-modal="false"  :before-close="handleClose">
+		<el-dialog title="新增" :visible ="addFormVisible?true: false" :close-on-click-modal="false"  :before-close="handleClose" style="text-align: left;">
 			<el-form :model="addForm" label-width="80px" :rules="addFormRules" ref="addForm">
 				<el-form-item label="姓名" prop="name">
 					<el-input v-model="addForm.name" auto-complete="off"></el-input>
@@ -196,7 +197,9 @@ export default {
           this.editFormVisible = false;
           this.addFormVisible = false;
         })
-        .catch(_ => {});
+        .catch(_ => {
+
+        });
     },
     //查询按钮
     getUser() {
@@ -264,7 +267,8 @@ export default {
               this.editFormVisible = false;
               this.getUser();
             });
-          });
+          })
+          .catch(_=>{});
         }
       });
     },
@@ -319,11 +323,11 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .toolbar {
   text-align: left;
 }
-.el-table .cell {
+.el-table{
   text-align: left;
 }
 .demo-form-inline {
@@ -334,6 +338,7 @@ export default {
   text-align: left;
   background-color: #f2f2f2;
 }
+
 .el-form-item {
   margin-bottom: 0;
 }
@@ -342,4 +347,5 @@ export default {
   margin: 0;
   border: 1px solid silver;
 }
+
 </style>

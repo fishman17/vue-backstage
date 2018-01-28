@@ -58,8 +58,8 @@
               </el-menu-item>
            </el-menu> -->
          
-        <aside :class="collapsed?'menu-collapsed':'menu-expanded'">
-          <!--导航菜单-->
+        <!-- <aside :class="collapsed?'menu-collapsed':'menu-expanded'">
+          
           <el-menu :default-active="$route.path" class="el-menu-vertical-demo-1" @open="handleopen" @close="handleclose" @select="handleselect"
             unique-opened router v-show="!collapsed">
             <template v-for="(item,index) in $router.options.routes" v-if="!item.hidden">
@@ -70,7 +70,7 @@
               <el-menu-item v-if="item.leaf&&item.children.length>0" :index="item.children[0].path"><i :class="item.iconCls"></i>{{item.children[0].name}}</el-menu-item>
             </template>
           </el-menu>
-          <!--导航菜单-折叠后-->
+          
           <ul class="el-menu el-menu-vertical-demo-2 collapsed" v-show="collapsed" ref="menuCollapsed">
             <li v-for="(item,index) in $router.options.routes" v-if="!item.hidden" class="el-submenu item">
               <template v-if="!item.leaf">
@@ -86,7 +86,39 @@
               </template>
             </li>
           </ul>
-        </aside>
+        </aside> -->
+        
+        <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="collapsed">
+          <el-submenu index="1">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span slot="title">导航一</span>
+            </template>
+            <el-menu-item-group>
+              <span slot="title">分组一</span>
+              
+              <el-menu-item index="1-1" @click="pushTable()">Table</el-menu-item>
+              <el-menu-item index="1-2" @click="pushForm()">Form</el-menu-item>
+            </el-menu-item-group>
+            <el-menu-item-group title="分组2">
+              <el-menu-item index="1-3" @click="pushTest()">Test</el-menu-item>
+            </el-menu-item-group>
+              <el-menu-item index="1-4" @click="pushUser()">alluserlist</el-menu-item>
+          </el-submenu>
+          <el-submenu index="2">
+            <template slot="title">
+              <i class="el-icon-menu"></i>
+              <span slot="title">导航二</span>
+            </template>
+              <el-menu-item index="2-1"  @click="pushEchart()" >echart</el-menu-item>
+          </el-submenu>
+          <el-submenu index="3">
+            <template slot="title">
+              <i class="el-icon-setting"></i>
+              <span slot="title">导航三</span>
+            </template>
+          </el-submenu>
+        </el-menu>
         <section class="content-container">
           <div class="grid-content bg-purple-light">
             <el-col :span="24" class="breadcrumb-container">
@@ -131,6 +163,21 @@ export default {
     };
   },
   methods: {
+    pushTable(){
+      this.$router.push({path:'/table'});
+    },
+    pushUser(){
+        this.$router.push({path:'/user'});
+    },
+    pushForm(){
+        this.$router.push({path:'/form'});
+    },
+    pushEchart(){
+        this.$router.push({path:'/echart'});
+    },
+    pushTest(){
+        this.$router.push({path:'/test'});
+    },
     test() {
       console.log(this.$router);
     },
@@ -138,9 +185,9 @@ export default {
       this.collapsed = !this.collapsed;
     },
     handleClick() {},
-    handleopen() {},
-    handleclose() {},
-    handleselect() {},
+    handleOpen() {},
+    handleClose() {},
+    handleSelect() {},
     logout() {
       var _this = this;
       this.$confirm("确认退出吗?", "提示", {
@@ -170,85 +217,6 @@ export default {
 </script>
 
 <style  scoped lang="scss">
-// @import '~scss_vars';
-/* body {
-  margin: 0;
-  padding: 0;
-  background-color: antiquewhite;
-}
-.header {
-  height: 60px;
-  line-height: 60px;
-  background-color: aquamarine;
-}
-.logo {
-  height: 60px;
-  font-size: 22px;
-  padding-left: 20px;
-  padding-right: 20px;
-  border-color: rgba(238, 241, 146, 0.3);
-  border-right-width: 1px;
-  border-right-style: solid;
-}
-.logo-width {
-  width: 230px;
-}
-.logo-collapse-width {
-  width: 60px;
-}
-.tools {
-  padding: 0px 23px;
-  width: 14px;
-  height: 60px;
-  line-height: 60px;
-  cursor: pointer;
-}
-.userinfo {
-  text-align: right;
-  padding-right: 35px;
-  float: right;
-}
-.userinfo-inner {
-  width: 200px;
-  height: 100px;
-  cursor: pointer;
-  color: #fff;
-}
-.userinfo-inner img {
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  margin: 10px 0px 10px 10px;
-  float: right;
-}
-
-.main {
-  display: flex;
-  position: absolute;
-  top: 60px;
-  bottom: 0px;
-  overflow: hidden;
-}
-.main .el-menu-vertical-demo {
-  flex: 0 0 230px;
-  width: 230px;
-  height: 600px;
-  color: black;
-}
-.main .el-menu-vertical-demo .collapsed {
-  width: 60px;
-}
-.main .el-menu-vertical-demo .collapsed {
-  width: 60px;
-}
-.main .el-menu-vertical-demo .menu-collapsed {
-  flex: 0 0 60px;
-  width: 60px;
-}
-.main .el-menu-vertical-demo .menu-expanded {
-  flex: 0 0 230px;
-  width: 230px;
-} */
 .container {
   margin: 0;
   padding: 0;
@@ -300,7 +268,7 @@ export default {
       width: 230px;
     }
     .logo-collapse-width {
-      width: 60px;
+      width: 65px;
     }
     .tools {
       padding: 0px 23px;
@@ -347,12 +315,12 @@ export default {
       }
     }
     .menu-collapsed {
-      flex: 0 0 60px;
+      // flex: 0 0 60px;
       width: 60px;
   
     }
     .menu-expanded {
-      flex: 0 0 230px;
+      // flex: 0 0 230px;
       width: 230px;
     }
     .content-container {
@@ -369,6 +337,7 @@ export default {
         //margin-bottom: 15px;
         .title {
           width: 200px;
+          text-align: left;
           float: left;
           color: #475669;
         }
