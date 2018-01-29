@@ -21,8 +21,6 @@ Vue.use(Vuex)
 
 
 router.beforeEach((to, from, next) => {
-  // console.log(to, from, next);
-  // console.log(sessionStorage);
   // NProgress.start();
   if (to.path == '/login') {
     sessionStorage.removeItem('user');

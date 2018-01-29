@@ -1,5 +1,6 @@
 ## 基于vue的后台管理系统
-> 使用 vue-router vuex element-ui搭建
+> 使用 vue-router element-ui axios mock  搭建
+  配合font-awesome  echarts
 # vue-backstage
 
 > A Vue.js project
