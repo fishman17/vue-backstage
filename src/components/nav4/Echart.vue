@@ -63,8 +63,7 @@
         },
 
         mounted: function () {
-          getEcharts(123).then(item=>{
-            console.log(item);
+          getEcharts().then(item=>{
              this.chartColumnData =  item.data.msg.chartColumn? item.data.msg.chartColumn: {},
              this.chartBarData =  item.data.msg.chartBar? item.data.msg.chartBar: {},
              this.chartLineData =  item.data.msg.chartLine? item.data.msg.chartLine:{},
@@ -84,10 +83,6 @@
         width: 100%;
         float: left;
     }
-    /*.chart div {
-        height: 400px;
-        float: left;
-    }*/
 
     .el-col {
         padding: 30px 20px;

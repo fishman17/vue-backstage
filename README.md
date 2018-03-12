@@ -1,9 +1,8 @@
-## 基于vue的后台管理系统
+# 基于vue的后台管理系统
 > 使用 vue-router element-ui axios mock  搭建
   配合font-awesome  echarts
-# vue-backstage
+># 在线预览：[切换浏览器调试](http://120.79.232.154:58952/#/home)
 
-> A Vue.js project
 
 ## Build Setup
 

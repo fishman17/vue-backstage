@@ -87,11 +87,6 @@ export default {
         mock.onGet('/user/remove').reply(config => {
             console.log(config);
             let id = config.params.id;
-            // _Users.forEach((u,index)=>{
-            //     if(u.id == id){
-            //        _Users.slice(index,1);
-            //     }
-            // });
             _Users = _Users.filter(u => u.id !== id);
             // _Users.slice();
             return new Promise((resolve, reject) => {
@@ -115,15 +110,6 @@ export default {
               });
         });
         mock.onGet('/user/edit').reply(config => {
-            // console.log(config);
-            // let nowUser = config.params;
-            // _Users.forEach(u => {
-            //     if(u.id == nowUser.id){
-            //         u = nowUser;
-            //         console.log(u);
-            //     }
-            // })
-            // console.log(_Users);
             let { id, name, addr, age, birth, sex } = config.params;
             _Users.some(u => {
               if (u.id === id) {

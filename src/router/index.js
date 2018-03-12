@@ -55,5 +55,5 @@ export default new Router({
         { path: '/echart', component: Echart, name: 'echart' }
       ]
     },
-  ]
+   ]
 })
